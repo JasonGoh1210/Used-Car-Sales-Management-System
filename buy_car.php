@@ -33,7 +33,7 @@ $total_results = mysqli_num_rows($result);
         <div class="nav-container">
             <div class="logo">
     <a href="home.php" style="text-decoration: none; color: inherit;">
-        CARSOME <span>FYP</span>
+        USEDCAR <span>FYP</span>
     </a>
 </div>
             <div class="nav-links">
