@@ -16,7 +16,6 @@ if (isset($_POST['login'])) {
 
         $row = mysqli_fetch_assoc($result);
 
-        // 🔐 verify password
         if (password_verify($password, $row['admin_password'])) {
 
             $_SESSION['admin_id'] = $row['admin_id'];
