@@ -1,11 +1,11 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #ccd0cf;
+    background: #fffffe;
 }
 
 .topbar {
-    background: #11212d;
+    background: #0f0e17;
     color: #ccd0cf;
     padding: 15px 30px;
     display: flex;
@@ -27,7 +27,7 @@ body {
 .sidebar {
     width: 220px;
     height: 100vh;
-    background:#11212d;
+    background:#0f0e17;
     position: fixed;
     top: 0;
     left: 0;
@@ -52,8 +52,8 @@ body {
 }
 
 .card {
-    background: #5c5f66;
-    color: #ccd0cf;
+    background: #ff8906;
+    color: #232946;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
