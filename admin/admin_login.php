@@ -2,8 +2,6 @@
 session_start();
 include("../config/db.php");
 
-$error = "";
-
 if (isset($_POST['login'])) {
 
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -50,7 +48,8 @@ if (isset($_POST['login'])) {
     <button type="submit" name="login">Login</button>
 </form>
 
-<p style="color:red;"><?php echo $error; ?></p>
+<p style="color:red;">
+<?php echo $error; ?></p>
 
 </body>
 </html>
