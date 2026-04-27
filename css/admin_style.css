@@ -5,8 +5,8 @@ body {
 }
 
 .topbar {
-    background: #0f0e17;
-    color: #ccd0cf;
+    background: #1a2038;
+    color: #fffffe;
     padding: 15px 30px;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@ body {
 .sidebar {
     width: 220px;
     height: 100vh;
-    background:#0f0e17;
+    background:#1a2038;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,14 +36,14 @@ body {
 
 .sidebar a {
     display: block;
-    color: #ccd0cf;
+    color: #fffffe;
     padding: 15px 20px;
     text-decoration: none;
 }
 
 .sidebar a:hover {
     background: #40444e;
-    color:#ffffff;
+    color: #fffffe;
 }
 
 .content {
