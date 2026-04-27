@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0f172a;
+    background: #ffffff;
 }
 
 .topbar {
@@ -42,7 +42,7 @@ body {
 }
 
 .sidebar a:hover {
-    background: #0f172a;
+    background: #40444e;
     color:#ffffff;
 }
 
@@ -52,11 +52,11 @@ body {
 }
 
 .card {
-    background: #0f172a;
+    background: #5c5f66;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .card h3 {
