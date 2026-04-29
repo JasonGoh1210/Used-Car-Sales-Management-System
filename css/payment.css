@@ -148,7 +148,11 @@ button {
 }
 
 .back {
-    background: black;
+    background: #ff8c00;
     color: white;
     margin-top: 20px;
+}
+
+.back:hover {
+    background: #333;
 }
