@@ -17,69 +17,11 @@ $date = date("M d, Y");
 <head>
 <meta charset="UTF-8">
 <title>Bill</title>
-
-<style>
-body {
-    font-family: Arial;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-}
-
-.container {
-    width: 500px;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    font-size: 35px;
-}
-
-.success { background:#d4f5df; color:green; }
-.fail { background:#ffd6d6; color:red; }
-
-h2.success-text { color:green; }
-h2.fail-text { color:red; }
-
-.box {
-    background: #f0f0f0;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
-    text-align:left;
-}
-
-.row {
-    display:flex;
-    justify-content:space-between;
-    margin:8px 0;
-}
-
-button {
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:8px;
-}
-
-.back { background:#eee; }
-</style>
+<link rel="stylesheet" href="../css/payment.css">
 
 </head>
 
-<body>
+<body class="bill-page">
 
 <div class="container">
 
@@ -125,6 +67,8 @@ Payment failed. Please check your card details.
         <span><?php echo $name; ?></span>
     </div>
 </div>
+
+<div></div>
 
 <a href="dashboard.php">
     <button class="back">Return to Store</button>

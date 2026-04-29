@@ -10,7 +10,7 @@ $price = $_GET['price'] ?? 0;
 <link rel="stylesheet" href="../css/payment.css">
 </head>
 
-<body>
+<body class="payment-page">
 
 <div class="container">
 
