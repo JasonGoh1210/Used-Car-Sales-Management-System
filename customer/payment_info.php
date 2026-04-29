@@ -128,24 +128,19 @@ $price = $_GET['price'] ?? 0;
 <div class="card">
 <h3>Additional Details (optional)</h3>
 
-<div class="row">
-    <div class="upload-box">
-        <p>Photo of IC (Front)</p>
-        <input type="file" name="ic_front">
-    </div>
-
-    <div class="upload-box">
-        <p>Photo of IC (Back)</p>
-        <input type="file" name="ic_back">
-    </div>
+<div class="upload-box">
+    <p>Photo of IC (Front)</p>
+    <input type="file" accept="image/*" id="icFront">
+    <img id="frontPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
 </div>
 
-<p class="note">
-Please upload your documents:<br>
-1. jpg, png or pdf<br>
-2. smaller than 5MB<br>
-3. clear and readable
-</p>
+<div class="upload-box">
+    <p>Photo of IC (Back)</p>
+    <input type="file" accept="image/*" id="icBack">
+    <img id="backPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
+</div>
+
+
 
 </div>
 
@@ -207,6 +202,30 @@ document.querySelector('input[name="phone"]').addEventListener('input', function
 
     e.target.value = value;
 });
+</script>
+
+<script>
+document.getElementById("icFront").addEventListener("change", function () {
+    preview(this, "frontPreview");
+});
+
+document.getElementById("icBack").addEventListener("change", function () {
+    preview(this, "backPreview");
+});
+
+function preview(input, previewId) {
+    if (input.files && input.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            let img = document.getElementById(previewId);
+            img.src = e.target.result;
+            img.style.display = "block";
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 </script>
 
 </body>

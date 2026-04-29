@@ -68,6 +68,20 @@ body {
     height: 120px;
 }
 
+.payment-page .upload-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px dashed #bbb;
+    background: #fafafa;
+}
+
+.payment-page button {
+    margin-top: 30px;
+}
+
 .bill-page .container {
     width: 500px;
     text-align: center;
@@ -125,7 +139,7 @@ button {
 }
 
 .payment-page button {
-    background: black;
+    background: #ff8c00;
     color: white;
 }
 
