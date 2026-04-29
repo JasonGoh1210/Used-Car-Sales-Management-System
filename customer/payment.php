@@ -6,7 +6,7 @@ $price = $_POST['price'] ?? 0;
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Credit Card UI</title>
+<title>Payment</title>
 <link rel="stylesheet" href="../css/payment.css">
 </head>
 
