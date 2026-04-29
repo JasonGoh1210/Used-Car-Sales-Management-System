@@ -63,3 +63,31 @@ body {
 .card h3 {
     margin: 0;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background: #1e293b;
+    color: white;
+}
+
+.btn {
+    display: inline-block;
+    background: #22c55e;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}

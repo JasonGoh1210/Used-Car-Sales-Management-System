@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2026 at 01:33 PM
+-- Generation Time: Apr 27, 2026 at 08:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -71,7 +71,9 @@ CREATE TABLE `car` (
   `car_year` int(11) DEFAULT NULL,
   `car_price` decimal(10,2) DEFAULT NULL,
   `car_mileage` int(11) DEFAULT NULL,
-  `car_status` varchar(20) DEFAULT 'Available'
+  `car_status` varchar(20) DEFAULT 'Available',
+  `car_image` varchar(255) DEFAULT NULL,
+  `car_description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -101,7 +103,10 @@ CREATE TABLE `customer` (
   `cust_city` varchar(50) DEFAULT NULL,
   `cust_state` varchar(50) DEFAULT NULL,
   `cust_postcode` varchar(10) DEFAULT NULL,
-  `cust_status` varchar(20) DEFAULT 'Active'
+  `cust_status` varchar(20) DEFAULT 'Active',
+  `ic_front` varchar(255) DEFAULT NULL,
+  `ic_back` varchar(255) DEFAULT NULL,
+  `cust_ic` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

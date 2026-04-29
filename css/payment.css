@@ -1,0 +1,60 @@
+<?php
+include("../config/db.php");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="dashboard.php">Dashboard</a>
+    <a href="booking.php">Booking</a>
+    <a href="payment.php">Payment</a>
+</div>
+
+<!-- Topbar -->
+<div class="topbar">
+    <div class="logo">
+        <img src="../image/logo.png" alt="logo">
+        <h2>DriveX Motors</h2>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+    <div class="card">
+        <h3>Make Payment</h3>
+
+        <form action="upload_payment.php" method="POST" enctype="multipart/form-data">
+
+            <label>Amount (RM)</label><br>
+            <input type="number" name="amount" required><br><br>
+
+            <label>Payment Method</label><br>
+            <select name="payment_method" required>
+                <option value="">-- Select Method --</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="TNG">Touch 'n Go (TNG)</option>
+                <option value="DuitNow">DuitNow</option>
+            </select><br><br>
+
+            <label>Upload Receipt</label><br>
+            <input type="file" name="receipt" required><br><br>
+
+            <button type="submit" name="submit">Submit Payment</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
