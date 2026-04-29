@@ -11,22 +11,34 @@ if(isset($_POST['login'])){
         echo "<script>alert('Invalid email format');</script>";
     }
 
-    elseif(!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&*]).{8}$/', $password)){
-        echo "<script>alert('Password must be have 8 characters with letter, number and symbol (@#$%^&*)');</script>";
+    elseif(!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&*]).{8,}$/', $password)){
+        echo "<script>alert('Password must be at least 8 characters with letter, number and symbol (@#$%^&*)');</script>";
     } 
     
     else {
 
         $result = mysqli_query($conn, 
-            "SELECT * FROM admin WHERE admin_email='$email' AND admin_password='$password'"
+            "SELECT * FROM admin WHERE admin_email='$email'"
         );
 
         if(mysqli_num_rows($result) > 0){
-            $_SESSION['admin'] = $email;
-            header("Location: dashboard.php");
-            exit();
+
+            $row = mysqli_fetch_assoc($result);
+
+            if(password_verify($password, $row['admin_password'])){
+
+                $_SESSION['admin_id'] = $row['admin_id'];
+                $_SESSION['admin_name'] = $row['admin_username'];
+
+                header("Location: dashboard.php");
+                exit();
+
+            } else {
+                echo "<script>alert('Wrong password');</script>";
+            }
+
         } else {
-            echo "<script>alert('Email or password incorrect');</script>";
+            echo "<script>alert('Email not found');</script>";
         }
     }
 }
@@ -38,6 +50,7 @@ if(isset($_POST['login'])){
     <title>Admin Login</title>
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body class="login-page">
 
 <div class="login-left-container">
@@ -61,9 +74,9 @@ if(isset($_POST['login'])){
                 <input type="text" name="email" placeholder="xxxxxx@gmail.com" required>
 
                 <label>Password</label>
-                <input type="password" name="password" placeholder="xxxxxxxx" maxlength="8" required>
+                <input type="password" name="password" placeholder="Enter password" required>
 
-                <button name="login">LOG IN</button>
+                <button type="submit" name="login">LOG IN</button>
 
             </form>
 
@@ -79,8 +92,7 @@ document.querySelector("form").addEventListener("submit", function(e) {
     let password = document.querySelector("input[name='password']").value.trim();
 
     let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-    let passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&*]).{8}$/;
+    let passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&*]).{8,}$/;
 
     if (!emailPattern.test(email)) {
         alert("Invalid email format");
@@ -89,7 +101,7 @@ document.querySelector("form").addEventListener("submit", function(e) {
     }
 
     if (!passwordPattern.test(password)) {
-        alert("Password must be exactly 8 characters with letters, numbers, and symbols (@#$%^&*)");
+        alert("Password must be at least 8 characters with letters, numbers, and symbols (@#$%^&*)");
         e.preventDefault();
     }
 

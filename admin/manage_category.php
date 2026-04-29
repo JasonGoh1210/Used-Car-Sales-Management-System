@@ -4,16 +4,15 @@ if(!isset($_SESSION['admin_id'])){
     header("Location: admin_login.php");
     exit();
 }
-
 include('../config/db.php');
 
-$result = mysqli_query($conn, "SELECT * FROM car");
+$result = mysqli_query($conn, "SELECT * FROM category");
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manage Car</title>
+    <title>Manage Category</title>
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
 
@@ -35,7 +34,7 @@ $result = mysqli_query($conn, "SELECT * FROM car");
 
 <div class="sidebar">
     <a href="dashboard.php">Overview</a>
-    <a href="manage_car.php" style="background:#40444e;">Manage Car</a>
+    <a href="manage_car.php">Manage Car</a>
     <a href="manage_category.php">Manage Category</a>
     <a href="manage_booking.php">Manage Booking</a>
     <a href="manage_payment.php">Manage Payment</a>
@@ -48,42 +47,38 @@ $result = mysqli_query($conn, "SELECT * FROM car");
 <div class="content">
 
     <div class="page-header">
-        <h2>Manage Cars</h2>
-        <a href="add_car.php" class="btn">+ Add Car</a>
+        <h2>Manage Category</h2>
+        <a href="add_category.php" class="btn">+ Add Category</a>
     </div>
 
     <table>
         <tr>
             <th>ID</th>
-            <th>Image</th>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Year</th>
-            <th>Price</th>
+            <th>Category Name</th>
             <th>Status</th>
-            <th>Action</th>
         </tr>
 
         <?php while($row = mysqli_fetch_assoc($result)) { ?>
-
         <tr>
-            <td><?php echo $row['car_id']; ?></td>
+            <td><?php echo $row['category_id']; ?></td>
+            <td><?php echo $row['category_name']; ?></td>
 
             <td>
-                <img src="../image/<?php echo $row['car_image']; ?>" width="80">
-            </td>
-
-            <td><?php echo $row['car_brand']; ?></td>
-            <td><?php echo $row['car_model']; ?></td>
-            <td><?php echo $row['car_year']; ?></td>
-            <td>RM <?php echo $row['car_price']; ?></td>
-            <td><?php echo $row['car_status']; ?></td>
-
-            <td>
-                <a href="edit_car.php?id=<?php echo $row['car_id']; ?>" class="edit-btn">Edit</a>
+                <?php if($row['category_status'] == 'Active') { ?>
+                    <a href="update_category_status.php?id=<?php echo $row['category_id']; ?>&status=Inactive"
+                       class="edit-btn"
+                       onclick="return confirm('Change to Inactive?');">
+                       Active
+                    </a>
+                <?php } else { ?>
+                    <a href="update_category_status.php?id=<?php echo $row['category_id']; ?>&status=Active"
+                       class="delete-btn"
+                       onclick="return confirm('Change to Active?');">
+                       Inactive
+                    </a>
+                <?php } ?>
             </td>
         </tr>
-
         <?php } ?>
 
     </table>
