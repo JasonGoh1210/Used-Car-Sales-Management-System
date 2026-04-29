@@ -16,7 +16,7 @@ $date = date("M d, Y");
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Result</title>
+<title>Bill</title>
 
 <style>
 body {
