@@ -25,7 +25,7 @@ $price = $_GET['price'] ?? 0;
 
 <div class="row">
     <div class="input-group">
-        <label>Name as per NRIC/Passport *</label>
+        <label>Name as per IC *</label>
         <input type="text" name="name" required placeholder="Enter your name">
     </div>
 
@@ -40,8 +40,10 @@ $price = $_GET['price'] ?? 0;
 
 <div class="row">
     <div class="input-group">
-        <label>NRIC/Passport Number *</label>
-        <input type="text" name="ic" required placeholder="901011-12-1234">
+        <label>IC Number *</label>
+        <input type="text" name="ic" required placeholder="000000-00-0000"
+        maxlength="14"
+        pattern="\d{6}-\d{2}-\d{4}">
     </div>
 
     <div class="input-group">
@@ -53,18 +55,28 @@ $price = $_GET['price'] ?? 0;
 <div class="row">
     <div class="input-group">
         <label>Email *</label>
-        <input type="email" name="email" required>
+        <input type="email"
+        name="email"
+        required
+        pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+        title="Only Gmail accounts are allowed">
     </div>
 
     <div class="input-group">
         <label>Mobile Number *</label>
-        <input type="text" name="phone" required>
+        <input type="text"
+        name="phone"
+        required
+        placeholder="+60123456789"
+        pattern="^\+60[0-9]{8,10}$"
+        title="Must start with +60 followed by 8-10 digits">
+
     </div>
 </div>
 
 <div class="input-group">
     <label>Address *</label>
-    <textarea name="address" required placeholder="Enter your address"></textarea>
+<textarea name="address" required placeholder="Enter your address" class="fixed-textarea"></textarea>
 </div>
 
 <div class="row">
@@ -77,9 +89,20 @@ $price = $_GET['price'] ?? 0;
         <label>State *</label>
         <select name="state" required>
             <option value="">Select state</option>
-            <option>Selangor</option>
             <option>Johor</option>
+            <option>Kuala Lumpur</option>
+            <option>Kedah</option>
+            <option>Kelantan</option>
             <option>Melaka</option>
+            <option>Negeri Sembilan</option>
+            <option>Pahang</option>
+            <option>Penang</option>
+            <option>Perak</option>
+            <option>Perlis</option>
+            <option>Selangor</option>
+            <option>Terengganu</option>
+            <option>Sabah</option>
+            <option>Sarawak</option>
         </select>
     </div>
 </div>
@@ -91,6 +114,11 @@ $price = $_GET['price'] ?? 0;
         <option>Kuala Lumpur</option>
         <option>Johor Bahru</option>
         <option>Melaka City</option>
+        <option>George Town</option>
+        <option>Ipoh</option>
+        <option>Alor Setar</option>
+        <option>Kota Bharu</option>
+        <option>Subang Jaya</option>
     </select>
 </div>
 
@@ -133,6 +161,53 @@ Please upload your documents:<br>
 </div>
 
 </div>
+
+<script>
+document.querySelector('input[name="ic"]').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, '');
+
+    if (value.length > 6) {
+        value = value.substring(0, 6) + '-' + value.substring(6);
+    }
+    if (value.length > 9) {
+        value = value.substring(0, 9) + '-' + value.substring(9);
+    }
+
+    value = value.substring(0, 14);
+
+    e.target.value = value;
+});
+</script>
+
+<script>
+document.querySelector('input[name="email"]').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    if (value && !value.endsWith('@gmail.com')) {
+        e.target.setCustomValidity("Only Gmail emails are allowed (@gmail.com)");
+    } else {
+        e.target.setCustomValidity("");
+    }
+});
+</script>
+
+<script>
+document.querySelector('input[name="phone"]').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    if (!value.startsWith('+60')) {
+        value = '+60' + value.replace(/\D/g, '');
+    } else {
+        value = '+60' + value.substring(3).replace(/\D/g, '');
+    }
+
+    value = value.substring(0, 13);
+
+    e.target.value = value;
+});
+</script>
 
 </body>
 </html>

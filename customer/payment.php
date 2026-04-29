@@ -35,7 +35,11 @@ $email = $_POST['email'] ?? '';
 
         <div class="input-group">
             <label>Card number</label>
-            <input type="text" name="card_number" placeholder="0000 0000 0000 0000" required>
+            <input type="text"
+            name="card_number"
+            placeholder="0000 0000 0000 0000"
+            maxlength="19"
+            required>
         </div>
 
         <div class="row">
@@ -139,6 +143,20 @@ document.getElementById("payForm").addEventListener("submit", function(e){
     }
 });
 
+</script>
+
+<script>
+document.querySelector("input[name='card_number']").addEventListener("input", function (e) {
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, "");
+
+    value = value.replace(/(.{4})/g, "$1 ").trim();
+
+    value = value.substring(0, 19);
+
+    e.target.value = value;
+});
 </script>
 
 </body>
