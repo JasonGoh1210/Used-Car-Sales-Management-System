@@ -37,7 +37,7 @@ if(!isset($_SESSION['admin_id'])){
 
     <a href="dashboard.php">Overview</a>
     <a href="manage_car.php">Manage Car</a>
-    <a href="manage_category.php">Car Category</a>
+    <a href="manage_category.php">Manage Category</a>
     <a href="manage_booking.php">Manage Booking</a>
     <a href="manage_payment.php">Manage Payment</a>
     <a href="manage_enquiry.php">Customer Enquiry</a>
