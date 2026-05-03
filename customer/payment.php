@@ -15,7 +15,7 @@ $email = $_POST['email'] ?? '';
 
 <body class="payment-page">
 
-<form action="success.php" method="POST" id="payForm">
+<form action="success.php" method="POST" enctype="multipart/form-data" id="payForm">
 
 <div class="container">
 
@@ -36,10 +36,7 @@ $email = $_POST['email'] ?? '';
         <div class="input-group">
             <label>Card number</label>
             <input type="text"
-            name="card_number"
-            placeholder="0000 0000 0000 0000"
-            maxlength="19"
-            required>
+            name="card_number" placeholder="0000 0000 0000 0000" maxlength="16" pattern="[0-9\s]+" required>
         </div>
 
         <div class="row">
@@ -105,7 +102,7 @@ $email = $_POST['email'] ?? '';
 
         <div class="input-group">
             <label>ZIP CODE</label>
-            <input type="text" name="zip" placeholder="ZIP CODE" required>
+            <input type="text" name="zip" placeholder="ZIP CODE" pattern="[0-9]+" required>
         </div>
     </div>
 
@@ -113,6 +110,12 @@ $email = $_POST['email'] ?? '';
     <input type="hidden" name="price" value="<?php echo $price; ?>">
     <input type="hidden" name="email" value="<?php echo $email; ?>">
     <input type="hidden" name="status" id="status" value="success">
+
+    <h3>Payment Receipt</h3>
+
+    <div class="upload-box">
+        <input type="file" name="receipt" accept=".jpg,.jpeg,.png,.pdf" required>
+    </div>
 
     <button type="submit">Pay</button>
 
@@ -135,12 +138,15 @@ for (let i = 0; i < 10; i++) {
 
 document.getElementById("payForm").addEventListener("submit", function(e){
 
-    let card = document.querySelector("[name='card_number']").value;
+    let card = document.querySelector("[name='card_number']").value.replace(/\s/g, "");
     let cvv = document.querySelector("[name='cvv']").value;
 
     if(card.length < 16 || cvv.length != 3){
         document.getElementById("status").value = "fail";
-    }
+    } 
+    else{
+        document.getElementById("status").value = "success";
+    }   
 });
 
 </script>

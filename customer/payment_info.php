@@ -140,12 +140,6 @@ $price = $_GET['price'] ?? 0;
     <img id="backPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
 </div>
 
-<h3>Payment Receipt</h3>
-
-<div class="upload-box">
-    <input type="file" name="receipt" accept=".jpg,.jpeg,.png,.pdf" required>
-</div>
-
 </div>
 
 <!-- Hidden price -->

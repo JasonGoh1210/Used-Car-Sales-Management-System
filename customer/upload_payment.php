@@ -2,7 +2,7 @@
 include("../config/db.php");
 
 $booking_id = $_POST['booking_id'] ?? 0;
-$amount = $_POST['amount'] ?? 0;
+$price = $_POST['price'] ?? 0;
 
 $receipt_name = $_FILES['receipt']['name'];
 $tmp = $_FILES['receipt']['tmp_name'];
@@ -26,11 +26,11 @@ if ($size > 5 * 1024 * 1024) {
 if (move_uploaded_file($tmp, $path)) {
 
     $sql = "INSERT INTO deposit (booking_id, deposit_amount, deposit_receipt, deposit_status)
-            VALUES ('$booking_id', '$amount', '$new_name', 'Pending')";
+            VALUES ('$booking_id', '$price', '$new_name', 'Pending')";
 
     if (mysqli_query($conn, $sql)) {
 
-        header("Location: bill.php?status=success&amount=$amount");
+        header("Location: bill.php?status=success&amount=$price");
         exit();
 
     } else {
