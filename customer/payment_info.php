@@ -130,17 +130,21 @@ $price = $_GET['price'] ?? 0;
 
 <div class="upload-box">
     <p>Photo of IC (Front)</p>
-    <input type="file" accept="image/*" id="icFront">
+    <input type="file" name="ic_front" accept="image/*" id="icFront">
     <img id="frontPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
 </div>
 
 <div class="upload-box">
     <p>Photo of IC (Back)</p>
-    <input type="file" accept="image/*" id="icBack">
+    <input type="file" name="ic_back" accept="image/*" id="icBack">
     <img id="backPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
 </div>
 
+<h3>Payment Receipt</h3>
 
+<div class="upload-box">
+    <input type="file" name="receipt" accept=".jpg,.jpeg,.png,.pdf" required>
+</div>
 
 </div>
 
