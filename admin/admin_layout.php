@@ -1,6 +1,5 @@
 <?php
 session_start();
-include('../config/db.php');
 
 if(!isset($_SESSION['admin_id'])){
     header("Location: admin_login.php");
@@ -8,23 +7,9 @@ if(!isset($_SESSION['admin_id'])){
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>DriveX Motors Dashboard</title>
-
-    <link rel="stylesheet" href="../css/admin_style.css">
-
-    <!-- ICON -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-</head>
-
-<body>
-
 <!-- TOPBAR -->
 <div class="topbar">
 
-    <!-- 左边：三条线 + LOGO -->
     <div class="top-left">
         <i class="fas fa-bars menu-btn" onclick="toggleSidebar()"></i>
 
@@ -34,7 +19,6 @@ if(!isset($_SESSION['admin_id'])){
         </div>
     </div>
 
-    <!-- 右边：Logout -->
     <div>
         <a href="admin_logout.php" class="logout-btn"
         onclick="return confirm('Are you sure you want to logout?');">
@@ -45,7 +29,6 @@ if(!isset($_SESSION['admin_id'])){
 
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
-
     <a href="dashboard.php"><i class="fas fa-home"></i> <span>Overview</span></a>
     <a href="manage_car.php"><i class="fas fa-car"></i> <span>Manage Car</span></a>
     <a href="manage_category.php"><i class="fas fa-list"></i> <span>Manage Category</span></a>
@@ -55,20 +38,8 @@ if(!isset($_SESSION['admin_id'])){
     <a href="manage_customer.php"><i class="fas fa-user"></i> <span>Customer</span></a>
     <a href="report.php"><i class="fas fa-chart-bar"></i> <span>Reports</span></a>
     <a href="../index.php"><i class="fas fa-globe"></i> <span>View Website</span></a>
-
 </div>
 
-<!-- CONTENT -->
-<div class="content" id="content">
-
-    <div class="card">
-        <h3>Dashboard</h3>
-        <p>Welcome to DriveX Motors Admin Page.</p>
-    </div>
-
-</div>
-
-<!-- JS -->
 <script>
 function toggleSidebar(){
     document.getElementById("sidebar").classList.toggle("collapsed");
@@ -76,6 +47,3 @@ function toggleSidebar(){
     document.querySelector(".topbar").classList.toggle("collapsed");
 }
 </script>
-
-</body>
-</html>
