@@ -5,11 +5,12 @@ $card = $_POST['card_number'] ?? '';
 $email = $_POST['email'] ?? '';
 $price = $_POST['price'] ?? 0;
 
-$last4 = substr($card, -4);
-$masked = "**** " . $last4;
-
+$cleanCard = str_replace(' ', '', $card);
+$last4 = substr($cleanCard, -4);
+$masked = "**** **** **** " . $last4;
 $txn = "TXN-" . rand(100000000,999999999);
 $date = date("M d, Y");
+$paymentStatus = ($status == "success") ? "Paid" : "Failed";
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +66,21 @@ Payment failed. Please check your card details.
     <div class="row">
         <span>Name</span>
         <span><?php echo $name; ?></span>
+    </div>
+
+    <div class="row">
+        <span>Email</span>
+        <span><?php echo $email; ?></span>
+    </div>
+
+    <div class="row">
+        <span>Payment Status</span>
+        <span><?php echo $paymentStatus; ?></span>
+    </div>
+
+    <div class="row">
+        <span>Receipt</span>
+        <span>Uploaded</span>
     </div>
 </div>
 

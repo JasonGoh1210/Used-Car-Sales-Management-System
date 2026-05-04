@@ -4,6 +4,7 @@ if(!isset($_SESSION['admin_id'])){
     header("Location: admin_login.php");
     exit();
 }
+
 include('../config/db.php');
 
 $cat_result = mysqli_query($conn, 
@@ -12,7 +13,7 @@ $cat_result = mysqli_query($conn,
 
 if(isset($_POST['submit'])){
 
-    $category_id = $_POST['category_id'];   // ⭐ 新增
+    $category_id = $_POST['category_id'];
     $brand = $_POST['brand'];
     $model = $_POST['model'];
     $year = $_POST['year'];
@@ -41,37 +42,21 @@ if(isset($_POST['submit'])){
 <head>
     <title>Add Car</title>
     <link rel="stylesheet" href="../css/admin_style.css">
+
+    <!-- ICON -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="topbar">
-    <div class="logo">
-        <img src="../image/logo.png">
-        <h2>DriveX Motors</h2>
-    </div>
+<!-- ⭐ 当前页面 -->
+<?php $active = 'car'; ?>
 
-    <div>
-        <a href="admin_logout.php" class="logout-btn" 
-        onclick="return confirm('Are you sure you want to logout?');">
-        Logout
-        </a>
-    </div>
-</div>
+<!-- ⭐ 统一 layout -->
+<?php include('admin_layout.php'); ?>
 
-<div class="sidebar">
-    <a href="dashboard.php">Overview</a>
-    <a href="manage_car.php" style="background:#40444e;">Manage Car</a>
-    <a href="manage_category.php">Manage Category</a>
-    <a href="manage_booking.php">Manage Booking</a>
-    <a href="manage_payment.php">Manage Payment</a>
-    <a href="manage_enquiry.php">Customer Enquiry</a>
-    <a href="manage_customer.php">Customer</a>
-    <a href="report.php">Reports</a>
-    <a href="../index.php">View Website</a>
-</div>
-
-<div class="content">
+<!-- CONTENT -->
+<div class="content" id="content">
 
 <div class="form-box">
     <h2>Add Car</h2>
