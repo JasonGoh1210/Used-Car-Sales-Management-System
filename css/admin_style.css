@@ -1,11 +1,10 @@
-/* ================= BASE ================= */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #fffffe;
 }
 
-/* ================= LOGIN ================= */
+/*Login*/
 .login-page {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(
@@ -16,7 +15,6 @@ body {
     );
 }
 
-/* ================= TOPBAR ================= */
 .topbar {
     position: fixed; 
     top: 0;
@@ -32,14 +30,12 @@ body {
     transition: 0.3s;
 }
 
-/* 左边 */
 .top-left {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* 三条线 */
 .menu-btn {
     font-size: 22px;
     cursor: pointer;
@@ -57,7 +53,7 @@ body {
     width: 40px;
 }
 
-/* ================= SIDEBAR ================= */
+/*sidebar*/
 .sidebar {
     width: 220px;
     height: 100vh;
@@ -90,30 +86,26 @@ body {
     background: #40444e;
 }
 
-/* 收缩 */
 .sidebar.collapsed {
     width: 70px;
 }
 
-/* 收缩隐藏文字 */
 .sidebar.collapsed span {
     display: none;
 }
 
-/* ================= CONTENT ================= */
+/*content*/
 .content {
     margin-left: 220px;
     padding: 30px;
-    padding-top: 120px;
-    transition: 0.3s;
+    padding-top: 80px;
 }
 
-/* sidebar 收缩 → content 跟着 */
 .content.expanded {
     margin-left: 70px;
 }
 
-/* ================= CARD ================= */
+/*Card*/
 .card {
     background: #ff8906;
     color: #232946;
@@ -123,7 +115,7 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* ================= TABLE ================= */
+/* table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -143,7 +135,7 @@ table th {
     color: white;
 }
 
-/* ================= BUTTON ================= */
+/*button*/
 .btn {
     display: inline-block;
     background: #ff8906;
@@ -154,7 +146,7 @@ table th {
     margin-bottom: 10px;
 }
 
-/* ================= LOGIN FORM ================= */
+/* Login Left Container */
 .login-left-container {
     display: flex;
     height: 100vh;
@@ -184,7 +176,7 @@ table th {
     margin: 0;
 }
 
-/* RIGHT */
+/*right*/
 .login-right {
     width: 60%;
     display: flex;
@@ -201,9 +193,19 @@ table th {
     box-shadow: 0 25px 60px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
+.login-form button {
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 .login-form h2 {
     font-size: 32px;
     margin-bottom: 40px;
@@ -211,9 +213,10 @@ table th {
 }
 
 .login-form input {
-    padding: 14px;
-    margin-bottom: 25px;
-    border: 1px solid #1a2038;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #1a2038;
     border-radius: 6px;
 }
 
@@ -233,7 +236,6 @@ table th {
     transform: translateY(-2px);
 }
 
-/* ================= FORM ================= */
 .form-box {
     background: white;
     padding: 30px;
@@ -268,7 +270,6 @@ table th {
     border-radius: 6px;
 }
 
-/* ================= EDIT BUTTON ================= */
 .edit-btn {
     background: #ff8906;
     color: white;
@@ -277,11 +278,22 @@ table th {
     border-radius: 4px;
 }
 
+.inative-btn {
+    background: #e74c3c;
+    color: white;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.inative-btn:hover {
+    background: #c0392b;
+}
+
 .edit-btn:hover {
     background: #e67e00;
 }
 
-/* ================= PAGE HEADER ================= */
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -293,7 +305,6 @@ table th {
     margin: 0;
 }
 
-/* ================= LOGOUT ================= */
 .logout-btn {
     color: #fffffe;
     text-decoration: none;
@@ -304,17 +315,15 @@ table th {
     color: #ff8906;
 }
 
-/* sidebar 收缩 → topbar 跟着 */
 .sidebar.collapsed ~ .topbar {
     left: 70px;
 }
-/* topbar 默认 */
+
 .topbar {
     left: 220px;
     transition: 0.3s;
 }
 
-/* sidebar 收缩 → topbar 也缩 */
 .topbar.collapsed {
     left: 70px;
 }

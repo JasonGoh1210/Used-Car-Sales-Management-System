@@ -16,14 +16,12 @@ $result = mysqli_query($conn, "SELECT * FROM category");
     <title>Manage Category</title>
     <link rel="stylesheet" href="../css/admin_style.css">
 
-    <!-- ICON -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 <?php include('admin_layout.php'); ?>
 
-<!-- CONTENT -->
 <div class="content" id="content">
 
     <div class="page-header">
@@ -52,7 +50,7 @@ $result = mysqli_query($conn, "SELECT * FROM category");
                     </a>
                 <?php } else { ?>
                     <a href="update_category_status.php?id=<?php echo $row['category_id']; ?>&status=Active"
-                       class="delete-btn"
+                       class="inative-btn"
                        onclick="return confirm('Change to Active?');">
                        Inactive
                     </a>

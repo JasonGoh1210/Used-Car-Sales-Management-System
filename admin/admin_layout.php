@@ -7,14 +7,13 @@ if(!isset($_SESSION['admin_id'])){
 }
 ?>
 
-<!-- TOPBAR -->
 <div class="topbar">
 
     <div class="top-left">
         <i class="fas fa-bars menu-btn" onclick="toggleSidebar()"></i>
 
         <div class="logo">
-            <img src="../image/logo.png">
+            <img src="../image/logo_Only.png">
             <h2>DriveX Motors</h2>
         </div>
     </div>
@@ -27,7 +26,6 @@ if(!isset($_SESSION['admin_id'])){
     </div>
 </div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
     <a href="dashboard.php"><i class="fas fa-home"></i> <span>Overview</span></a>
     <a href="manage_car.php"><i class="fas fa-car"></i> <span>Manage Car</span></a>

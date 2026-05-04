@@ -47,7 +47,6 @@ if(isset($_POST['update'])){
 
     <form method="POST">
 
-        <!-- ⭐ Customer ID -->
         <label>Customer ID</label>
         <input type="text" value="CTM<?php echo str_pad($row['cust_id'],4,'0',STR_PAD_LEFT); ?>" readonly>
 
@@ -60,11 +59,9 @@ if(isset($_POST['update'])){
         <label>Phone</label>
         <input type="text" value="<?php echo $row['cust_phone']; ?>" readonly>
 
-        <!-- ⭐ IC -->
         <label>IC Number</label>
         <input type="text" value="<?php echo $row['cust_ic']; ?>" readonly>
 
-        <!-- ⭐ Address -->
         <label>Address</label>
         <input type="text" value="<?php echo $row['cust_address']; ?>" readonly>
 
@@ -77,7 +74,6 @@ if(isset($_POST['update'])){
         <label>Postcode</label>
         <input type="text" value="<?php echo $row['cust_postcode']; ?>" readonly>
 
-        <!-- ⭐ Status（唯一可以改） -->
         <label>Status</label>
         <select name="status">
             <option value="Active" <?php if($row['cust_status']=="Active") echo "selected"; ?>>Active</option>
@@ -86,7 +82,6 @@ if(isset($_POST['update'])){
 
         <br><br>
 
-        <!-- ⭐ IC 图片 -->
         <label>IC Front</label><br>
         <?php if($row['ic_front'] != "") { ?>
             <img src="../image/<?php echo $row['ic_front']; ?>" width="150"><br><br>

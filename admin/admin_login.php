@@ -56,7 +56,7 @@ if(isset($_POST['login'])){
 <div class="login-left-container">
 
     <div class="login-left">
-        <img src="../image/logo_Only.png">
+        <img src="../image/logo.png">
 
         <div class="login-left-text">
             <h1>WELCOME<br>BACK</h1>
@@ -74,7 +74,7 @@ if(isset($_POST['login'])){
                 <input type="text" name="email" placeholder="xxxxxx@gmail.com" required>
 
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Enter password" required>
+                <input type="password" name="password" placeholder="XXXXXXXX" required>
 
                 <button type="submit" name="login">LOG IN</button>
 

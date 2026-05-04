@@ -49,10 +49,8 @@ if(isset($_POST['submit'])){
 
 <body>
 
-<!-- ⭐ 当前页面 -->
 <?php $active = 'car'; ?>
 
-<!-- ⭐ 统一 layout -->
 <?php include('admin_layout.php'); ?>
 
 <!-- CONTENT -->
