@@ -9,3 +9,9 @@ VALUES
 ('John Tan', 'john@gmail.com', '0139876543', '12345678', '', '', '', '', 'Active', '', '', ''),
 ('Siti Nur', 'siti@gmail.com', '0145566778', '12345678', '', '', '', '', 'Inactive', '', '', ''),
 ('Ahmad Lim', 'ahmad@gmail.com', '0112233445', '12345678', '', '', '', '', 'Active', '', '', '');
+
+CREATE TABLE car_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    car_id INT,
+    image_path VARCHAR(255)
+);

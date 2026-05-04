@@ -55,7 +55,8 @@ $result = mysqli_query($conn, "SELECT * FROM car");
             <td><?php echo $row['car_brand']; ?></td>
             <td><?php echo $row['car_model']; ?></td>
             <td><?php echo $row['car_year']; ?></td>
-            <td>RM <?php echo $row['car_price']; ?></td>
+            <td>RM <?php echo number_format($row['car_price'], 2); ?></td>
+            
             <td><?php echo $row['car_status']; ?></td>
 
             <td>
