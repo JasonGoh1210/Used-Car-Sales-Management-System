@@ -11,7 +11,6 @@ $id = $_GET['id'];
 $result = mysqli_query($conn, "SELECT * FROM car WHERE car_id='$id'");
 $row = mysqli_fetch_assoc($result);
 
-// 👉 拿多图
 $images = mysqli_query($conn, "SELECT * FROM car_images WHERE car_id='$id'");
 
 $cat_result = mysqli_query($conn, 
@@ -29,7 +28,6 @@ if(isset($_POST['update'])){
     $status = $_POST['status'];
     $description = $_POST['description'];
 
-    // ✅ 主图
     if(!empty($_FILES['image']['name'])){
 
         $image = time() . "_" . basename($_FILES['image']['name']);
@@ -41,7 +39,6 @@ if(isset($_POST['update'])){
         $image = $row['car_image'];
     }
 
-    // ✅ 更新 car
     mysqli_query($conn, "UPDATE car SET
         category_id='$category_id',
         car_brand='$brand',
@@ -55,7 +52,6 @@ if(isset($_POST['update'])){
         WHERE car_id='$id'
     ");
 
-    // ✅ 新增多图（🔥改这里：image_path）
     if(!empty($_FILES['new_images']['name'][0])){
 
         foreach($_FILES['new_images']['name'] as $key => $name){

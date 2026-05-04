@@ -22,9 +22,6 @@ if(isset($_POST['submit'])){
     $status = $_POST['status'];
     $description = $_POST['description'];
 
-    $admin_id = 1;
-
-    // ✅ 多图处理
     $images = [];
 
     foreach($_FILES['image']['name'] as $key => $name){
@@ -40,16 +37,13 @@ if(isset($_POST['submit'])){
         }
     }
 
-    // ✅ 主图 = 第一张
     $mainImage = $images[0] ?? '';
 
-    // ✅ 插入 car（主图）
     mysqli_query($conn, "INSERT INTO car
     (category_id, admin_id, car_brand, car_model, car_year, car_price, car_mileage, car_status, car_image, car_description)
     VALUES
     ('$category_id','$admin_id','$brand','$model','$year','$price','$mileage','$status','$mainImage','$description')");
 
-    // ✅ 拿 car_id
     $car_id = mysqli_insert_id($conn);
 
     foreach($images as $img){
@@ -114,7 +108,6 @@ if(isset($_POST['submit'])){
             <option>Sold</option>
         </select>
 
-        <!-- ✅ 多图 -->
         <label>Car Images</label>
         <input type="file" id="imageInput" name="image[]" multiple accept="image/*">
 

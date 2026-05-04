@@ -16,7 +16,6 @@ $result = mysqli_query($conn, "SELECT * FROM car");
     <title>Manage Car</title>
     <link rel="stylesheet" href="../css/admin_style.css">
 
-    <!-- ICON -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -39,6 +38,7 @@ $result = mysqli_query($conn, "SELECT * FROM car");
             <th>Model</th>
             <th>Year</th>
             <th>Price</th>
+            <th>Mileage</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -56,6 +56,15 @@ $result = mysqli_query($conn, "SELECT * FROM car");
             <td><?php echo $row['car_model']; ?></td>
             <td><?php echo $row['car_year']; ?></td>
             <td>RM <?php echo number_format($row['car_price'], 2); ?></td>
+            <td>
+                <?php 
+                    if(!empty($row['car_mileage'])){
+                    echo number_format($row['car_mileage']) . " KM";
+                    } else {
+                    echo "-";
+                    }
+                ?>
+            </td>
             
             <td><?php echo $row['car_status']; ?></td>
 
