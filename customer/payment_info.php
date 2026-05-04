@@ -18,7 +18,7 @@ $price = $_GET['price'] ?? 0;
 
 <div class="left">
 
-<form action="payment.php" method="POST" enctype="multipart/form-data">
+<form action="save_booking.php" method="POST" enctype="multipart/form-data">
 
 <div class="card">
 <h3>Personal Information</h3>
@@ -120,6 +120,26 @@ $price = $_GET['price'] ?? 0;
         <option>Kota Bharu</option>
         <option>Subang Jaya</option>
     </select>
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Book Test Drive</h3>
+
+<div class="row">
+
+    <div class="input-group">
+        <label>Test Drive Date</label>
+        <input type="date" name="test_date">
+    </div>
+
+    <div class="input-group">
+        <label>Test Drive Time</label>
+        <input type="time" name="test_time">
+    </div>
+
 </div>
 
 </div>
