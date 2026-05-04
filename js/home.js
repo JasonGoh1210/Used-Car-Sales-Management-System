@@ -60,3 +60,4 @@ function switchTab(type) {
         sellContent.style.display = 'none';
     }
 }
+
