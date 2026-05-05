@@ -15,7 +15,7 @@ session_start();
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a href="home.php">USEDCAR <span>FYP</span></a>
+                <a href="home.php">DriveX <span>Motors</span></a>
             </div>
             
             <div class="nav-links">
