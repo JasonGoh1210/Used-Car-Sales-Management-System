@@ -1,23 +1,27 @@
 <?php 
-// 引入数据库连接
 include 'db.php'; 
 
-// 获取网址参数 (例如: buy_car.php?brand=Honda)
-// mysqli_real_escape_string 是为了防止 SQL 注入安全问题
 $brand = isset($_GET['brand']) ? mysqli_real_escape_string($conn, $_GET['brand']) : '';
 
-// 编写 SQL 语句：如果有品牌就过滤，没有就显示全部
 if ($brand != '') {
-    $sql = "SELECT * FROM cars WHERE brand = '$brand'";
-    $page_title = "Buy Used $brand - CARSOME FYP";
+    $sql = "SELECT * FROM car_list WHERE brand = '$brand'";
+    $page_title = "Buy Used $brand - DriveX Motor";
 } else {
-    $sql = "SELECT * FROM cars";
+    $sql = "SELECT * FROM car_list";
     $page_title = "DriveX Motor - Car";
 }
 
 $result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("SQL Error: " . mysqli_error($conn));
+}
+
 $total_results = mysqli_num_rows($result);
 ?>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -33,7 +37,7 @@ $total_results = mysqli_num_rows($result);
         <div class="nav-container">
             <div class="logo">
     <a href="home.php" style="text-decoration: none; color: inherit;">
-        USEDCAR <span>FYP</span>
+        DriveX <span>Motors</span>
     </a>
 </div>
             <div class="nav-links">
