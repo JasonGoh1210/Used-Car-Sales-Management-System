@@ -38,57 +38,114 @@ if (isset($_POST['signup_btn'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register - USEDCAR FYP</title>
+    <title>DriveX Motors - Register</title>
     <link rel="stylesheet" href="style.css">
+
+<style>
+.register-page {
+    display: flex !important;
+    min-height: calc(100vh - 74px) !important;
+}
+
+.register-left {
+    width: 50% !important;
+    min-height: calc(100vh - 74px) !important;
+    background: linear-gradient(135deg, #1a2038, #2c3e70);
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.register-right {
+    width: 50% !important;
+    min-height: calc(100vh - 74px) !important;
+    background: #f4f6fb !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.register-left img {
+    width: 80% !important;
+    max-width: 520px !important;
+}
+
+.register-card {
+    width: 400px !important;
+    background: white !important;
+    padding: 35px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15) !important;
+    text-align: center !important;
+    margin: 0 !important;
+}
+</style>
 </head>
 <body>
 
-<div class="register-container">
-    <form class="register-card" action="register.php" method="POST">
-        <h2>Create Account</h2>
-        <p>Fill in your personal details</p>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="home.php" style="text-decoration: none; color: inherit;">
+                DriveX <span>Motors</span>
+            </a>
+        </div>
 
-        <input type="text"
-               name="name"
-               placeholder="Full Name"
-               required
-               title="Please enter your full name">
+        <div class="nav-links">
+            <a href="buy_car.php">Buy Car</a>
+            <a href="home.php">Sell Car</a>
+            <button type="button" id="loginBtn" class="nav-signin-btn">Login</button>
+        </div>
+    </div>
+</nav>
 
-        <input type="tel"
-               name="phone"
-               placeholder="Phone Number"
-               pattern="[0-9]{3}-[0-9]{7,8}"
-               required
-               title="Please enter phone number like 018-7643458">
+<main class="register-page">
+    <section class="register-left">
+        <img src="image/drivex_motors.png" alt="DriveX Motors Logo">
+    </section>
 
-        <input type="email"
-               name="email"
-               placeholder="Email Address"
-               required
-               title="Please enter a valid email">
+    <section class="register-right">
+        <form class="register-card" action="register.php" method="POST">
+            <h2>Create Account</h2>
+            <p>Fill in your personal details</p>
 
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               minlength="6"
-               required
-               title="Password must be at least 6 characters">
+            <input type="text" name="name" placeholder="Full Name" required>
 
-        <input type="password"
-               name="confirm_password"
-               placeholder="Confirm Password"
-               required
-               title="Please confirm your password">
+            <input type="tel"
+                   name="phone"
+                   placeholder="Phone Number"
+                   pattern="[0-9]{3}-[0-9]{7,8}"
+                   required
+                   title="Please enter phone number like 018-7643458">
 
-               <button type="submit" name="signup_btn" class="register-btn otp-btn">
+            <input type="email" name="email" placeholder="Email Address" required>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Password"
+                   minlength="6"
+                   required>
+
+            <input type="password"
+                   name="confirm_password"
+                   placeholder="Confirm Password"
+                   required>
+
+            <button type="submit" name="signup_btn" class="register-btn otp-btn">
                 Sign Up
             </button>
+        </form>
+    </section>
+</main>
 
-        <p>
-            <button type="submit" name="submit_auth" class="otp-btn" id="mainAuthBtn">Login</button>
-        </p>
-    </form>
-</div>
+<div id="modal-container"></div>
+<script src="home.js"></script>
+
+<script>
+document.getElementById("loginBtn2").addEventListener("click", function () {
+    document.getElementById("loginBtn").click();
+});
+</script>
 
 </body>
 </html>
