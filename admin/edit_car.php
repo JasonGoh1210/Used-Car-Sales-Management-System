@@ -11,6 +11,8 @@ $id = $_GET['id'];
 $result = mysqli_query($conn, "SELECT * FROM car WHERE car_id='$id'");
 $row = mysqli_fetch_assoc($result);
 
+$images = mysqli_query($conn, "SELECT * FROM car_images WHERE car_id='$id'");
+
 $cat_result = mysqli_query($conn, 
     "SELECT * FROM category WHERE category_status='Active'"
 );
@@ -26,9 +28,9 @@ if(isset($_POST['update'])){
     $status = $_POST['status'];
     $description = $_POST['description'];
 
-    if($_FILES['image']['name'] != ""){
+    if(!empty($_FILES['image']['name'])){
 
-        $image = time() . "_" . $_FILES['image']['name'];
+        $image = time() . "_" . basename($_FILES['image']['name']);
         $tmp = $_FILES['image']['tmp_name'];
 
         move_uploaded_file($tmp, "../image/".$image);
@@ -50,6 +52,22 @@ if(isset($_POST['update'])){
         WHERE car_id='$id'
     ");
 
+    if(!empty($_FILES['new_images']['name'][0])){
+
+        foreach($_FILES['new_images']['name'] as $key => $name){
+
+            if(!empty($name)){
+                $newName = time() . "_" . basename($name);
+                $tmp = $_FILES['new_images']['tmp_name'][$key];
+
+                move_uploaded_file($tmp, "../image/".$newName);
+
+                mysqli_query($conn, "INSERT INTO car_images (car_id, image_path)
+                VALUES ('$id', '$newName')");
+            }
+        }
+    }
+
     echo "<script>alert('Car updated'); window.location='manage_car.php';</script>";
 }
 ?>
@@ -59,23 +77,74 @@ if(isset($_POST['update'])){
 <head>
     <title>Edit Car</title>
     <link rel="stylesheet" href="../css/admin_style.css">
-
-    <!-- ICON -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- ⭐ 当前页面（高亮 car） -->
-<?php $active = 'car'; ?>
-
-<!-- ⭐ 统一 layout -->
 <?php include('admin_layout.php'); ?>
 
 <div class="content" id="content">
 
 <div class="form-box">
     <h2>Edit Car</h2>
+
+    <label>Car Images</label><br><br>
+
+    <div style="display:flex; flex-wrap:wrap; gap:15px;">
+        <?php if(!empty($row['car_image'])) { ?>
+        <div style="position:relative;">
+            <img src="../image/<?php echo htmlspecialchars($row['car_image']); ?>" width="120">
+
+            <div style="
+                position:absolute;
+                bottom:5px;
+                left:5px;
+                background:green;
+                color:white;
+                padding:3px 6px;
+                font-size:12px;
+            ">MAIN</div>
+        </div>
+        <?php } ?>
+
+        <?php while($img = mysqli_fetch_assoc($images)) { ?>
+            <?php if(!empty($img['image_path'])) { ?>
+            <div style="position:relative;">
+                <img src="../image/<?php echo htmlspecialchars($img['image_path']); ?>" width="120">
+
+                <a href="delete_image.php?id=<?php echo $img['id']; ?>&car_id=<?php echo $id; ?>"
+                   style="
+                        position:absolute;
+                        top:5px;
+                        right:5px;
+                        background:orange;
+                        color:white;
+                        border-radius:50%;
+                        padding:3px 8px;
+                        text-decoration:none;
+                   ">×</a>
+
+                <a href="set_main.php?car_id=<?php echo $id; ?>&img=<?php echo urlencode($img['image_path']); ?>"
+                   style="
+                        position:absolute;
+                        bottom:5px;
+                        left:5px;
+                        background:#ff8906;
+                        color:white;
+                        padding:3px 6px;
+                        font-size:12px;
+                        text-decoration:none;
+                   ">
+                   Set Main
+                </a>
+            </div>
+            <?php } ?>
+        <?php } ?>
+
+    </div>
+
+    <br>
 
     <form method="POST" enctype="multipart/form-data">
 
@@ -90,10 +159,10 @@ if(isset($_POST['update'])){
         </select>
 
         <label>Brand</label>
-        <input type="text" name="brand" value="<?php echo $row['car_brand']; ?>" required>
+        <input type="text" name="brand" value="<?php echo htmlspecialchars($row['car_brand']); ?>" required>
 
         <label>Model</label>
-        <input type="text" name="model" value="<?php echo $row['car_model']; ?>" required>
+        <input type="text" name="model" value="<?php echo htmlspecialchars($row['car_model']); ?>" required>
 
         <label>Year</label>
         <input type="number" name="year" value="<?php echo $row['car_year']; ?>" required>
@@ -111,14 +180,14 @@ if(isset($_POST['update'])){
             <option value="Sold" <?php if($row['car_status']=="Sold") echo "selected"; ?>>Sold</option>
         </select>
 
-        <label>Current Image</label><br>
-        <img src="../image/<?php echo $row['car_image']; ?>" width="120"><br><br>
-
-        <label>Change Image</label>
+        <label>Change Main Image</label>
         <input type="file" name="image">
 
+        <label>Add More Images</label>
+        <input type="file" name="new_images[]" multiple>
+
         <label>Description</label>
-        <textarea name="description"><?php echo $row['car_description']; ?></textarea>
+        <textarea name="description"><?php echo htmlspecialchars($row['car_description']); ?></textarea>
 
         <button class="edit-btn" name="update">Update Car</button>
 

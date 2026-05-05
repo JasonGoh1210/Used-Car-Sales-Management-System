@@ -18,10 +18,10 @@ $price = $_GET['price'] ?? 0;
 
 <div class="left">
 
-<form action="payment.php" method="POST" enctype="multipart/form-data">
+<form action="save_booking.php" method="POST" enctype="multipart/form-data">
 
 <div class="card">
-<h3>Personal Information</h3>
+<h2>Personal Information</h2>
 
 <div class="row">
     <div class="input-group">
@@ -124,18 +124,38 @@ $price = $_GET['price'] ?? 0;
 
 </div>
 
+<div class="card">
+
+<h4>Book Test Drive</h4>
+
+<div class="row">
+
+    <div class="input-group">
+        <label>Test Drive Date</label>
+        <input type="date" name="test_date">
+    </div>
+
+    <div class="input-group">
+        <label>Test Drive Time</label>
+        <input type="time" name="test_time">
+    </div>
+
+</div>
+
+</div>
+
 <!-- Upload Section -->
 <div class="card">
-<h3>Additional Details (optional)</h3>
+<h4>Additional Details (optional)</h4>
 
 <div class="upload-box">
-    <p>Photo of IC (Front)</p>
+    <label>Photo of IC (Front)</label>
     <input type="file" name="ic_front" accept="image/*" id="icFront">
     <img id="frontPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
 </div>
 
 <div class="upload-box">
-    <p>Photo of IC (Back)</p>
+    <label>Photo of IC (Back)</label>
     <input type="file" name="ic_back" accept="image/*" id="icBack">
     <img id="backPreview" style="width:100%; margin-top:10px; display:none; border-radius:8px;">
 </div>

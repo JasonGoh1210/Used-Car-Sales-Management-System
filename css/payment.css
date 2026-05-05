@@ -156,3 +156,44 @@ button {
 .back:hover {
     background: #333;
 }
+
+.admin-page .container {
+    width: 900px;
+}
+
+.admin-page h2 {
+    margin-bottom: 20px;
+}
+
+.admin-page table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.admin-page th,
+.admin-page td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.admin-page th {
+    background: black;
+    color: white;
+}
+
+.admin-page .paid {
+    color: green;
+    font-weight: bold;
+}
+
+.admin-page .fail {
+    color: red;
+    font-weight: bold;
+}
+
+.admin-page a {
+    color: blue;
+    text-decoration: none;
+}

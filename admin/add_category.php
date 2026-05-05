@@ -21,8 +21,6 @@ if(isset($_POST['add'])){
 <head>
     <title>Add Category</title>
     <link rel="stylesheet" href="../css/admin_style.css">
-
-    <!-- ICON -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 

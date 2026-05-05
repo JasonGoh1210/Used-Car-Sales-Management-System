@@ -1,4 +1,7 @@
 <?php
+
+include '../database/connection.php';
+
 $status = $_POST['status'] ?? 'success';
 $name = $_POST['card_name'] ?? '';
 $card = $_POST['card_number'] ?? '';
@@ -6,11 +9,52 @@ $email = $_POST['email'] ?? '';
 $price = $_POST['price'] ?? 0;
 
 $cleanCard = str_replace(' ', '', $card);
+
 $last4 = substr($cleanCard, -4);
+
 $masked = "**** **** **** " . $last4;
+
 $txn = "TXN-" . rand(100000000,999999999);
+
 $date = date("M d, Y");
+
 $paymentStatus = ($status == "success") ? "Paid" : "Failed";
+
+if($status == "success"){
+
+    $update = "UPDATE car
+    SET car_status = 'Reserved'
+    WHERE car_id = 1";
+
+    mysqli_query($conn, $update);
+}
+
+$fileName = '';
+
+if(isset($_FILES['receipt'])){
+
+    $fileName = $_FILES['receipt']['name'];
+
+    $tmpName = $_FILES['receipt']['tmp_name'];
+
+    $uploadPath = "../uploads/" . $fileName;
+
+    move_uploaded_file($tmpName, $uploadPath);
+}
+
+
+// =========================
+// Insert Transaction
+// =========================
+
+$sql = "INSERT INTO transaction_record
+(card_name, card_number, amount, payment_status, receipt, transaction_date)
+
+VALUES
+('$name', '$masked', '$price', '$paymentStatus', '$fileName', NOW())";
+
+mysqli_query($conn, $sql);
+
 ?>
 
 <!DOCTYPE html>
