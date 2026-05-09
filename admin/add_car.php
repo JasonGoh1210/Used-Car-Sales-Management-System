@@ -7,18 +7,33 @@ if(!isset($_SESSION['admin_id'])){
 
 include('../config/db.php');
 
+$admin_id = $_SESSION['admin_id'];
+
 $cat_result = mysqli_query($conn, 
     "SELECT * FROM category WHERE category_status='Active'"
+);
+
+$brand_result = mysqli_query($conn,
+    "SELECT * FROM brand ORDER BY brand_name ASC"
+);
+
+$model_result = mysqli_query($conn,
+    "SELECT * FROM model ORDER BY model_name ASC"
 );
 
 if(isset($_POST['submit'])){
 
     $category_id = $_POST['category_id'];
-    $brand = $_POST['brand'];
-    $model = $_POST['model'];
+    $brand_id = $_POST['brand_id'];
+    $model_id = $_POST['model_id'];
+
+    $car_name = $_POST['car_name'];
     $year = $_POST['year'];
     $price = $_POST['price'];
     $mileage = $_POST['mileage'];
+    $car_cc = $_POST['car_cc'];
+    $car_color = $_POST['car_color'];
+    $car_plate = $_POST['car_plate'];
     $status = $_POST['status'];
     $description = $_POST['description'];
 
@@ -28,7 +43,7 @@ if(isset($_POST['submit'])){
 
         if(!empty($name)){
 
-            $newName = time() . "_" . $name;
+            $newName = time() . "_" . basename($name);
             $tmp = $_FILES['image']['tmp_name'][$key];
 
             move_uploaded_file($tmp, "../image/".$newName);
@@ -37,18 +52,53 @@ if(isset($_POST['submit'])){
         }
     }
 
+    // 主图
     $mainImage = $images[0] ?? '';
 
     mysqli_query($conn, "INSERT INTO car
-    (category_id, admin_id, car_brand, car_model, car_year, car_price, car_mileage, car_status, car_image, car_description)
+    (
+        category_id,
+        admin_id,
+        car_name,
+        car_year,
+        car_price,
+        car_mileage,
+        car_cc,
+        car_status,
+        car_image,
+        car_description,
+        brand_id,
+        model_id,
+        car_color,
+        car_plate
+    )
     VALUES
-    ('$category_id','$admin_id','$brand','$model','$year','$price','$mileage','$status','$mainImage','$description')");
+    (
+        '$category_id',
+        '$admin_id',
+        '$car_name',
+        '$year',
+        '$price',
+        '$mileage',
+        '$car_cc',
+        '$status',
+        '$mainImage',
+        '$description',
+        '$brand_id',
+        '$model_id',
+        '$car_color',
+        '$car_plate'
+    )");
 
     $car_id = mysqli_insert_id($conn);
 
+    // 多图
     foreach($images as $img){
-        mysqli_query($conn, "INSERT INTO car_images (car_id, image_path)
-        VALUES ('$car_id', '$img')");
+
+        mysqli_query($conn, "INSERT INTO car_images
+        (car_id, image_path)
+        VALUES
+        ('$car_id', '$img')");
     }
 
     echo "<script>alert('Car added'); window.location='manage_car.php';</script>";
@@ -75,44 +125,107 @@ if(isset($_POST['submit'])){
 
     <form method="POST" enctype="multipart/form-data" id="carForm">
 
-        <label>Brand</label>
-        <input type="text" name="brand" required>
-        
+        <label>Car Name</label>
+        <input type="text" name="car_name" id="car_name" required readonly>
+
+        <!-- Category -->
         <label>Category</label>
         <select name="category_id" required>
+
             <option value="">-- Select Category --</option>
 
             <?php while($cat = mysqli_fetch_assoc($cat_result)) { ?>
+
                 <option value="<?php echo $cat['category_id']; ?>">
                     <?php echo $cat['category_name']; ?>
                 </option>
+
             <?php } ?>
+
         </select>
 
-        <label>Model</label>
-        <input type="text" name="model" required>
+        <!-- Brand -->
+        <label>Brand</label>
+        <select name="brand_id" id="brand" required>
 
+            <option value="">-- Select Brand --</option>
+
+            <?php while($brand = mysqli_fetch_assoc($brand_result)) { ?>
+
+                <option value="<?php echo $brand['brand_id']; ?>">
+                    <?php echo $brand['brand_name']; ?>
+                </option>
+
+            <?php } ?>
+
+        </select>
+
+        <!-- Model -->
+        <label>Model</label>
+
+        <select name="model_id" id="model" required>
+
+            <option value="">-- Select Model --</option>
+
+            <?php while($model = mysqli_fetch_assoc($model_result)) { ?>
+
+                <option
+                    value="<?php echo $model['model_id']; ?>"
+                    data-brand="<?php echo $model['brand_id']; ?>"
+                >
+                    <?php echo $model['model_name']; ?>
+                </option>
+
+            <?php } ?>
+
+        </select>
+
+        <!-- Year -->
         <label>Year</label>
         <input type="number" name="year" required>
 
+        <!-- Price -->
         <label>Price (RM)</label>
         <input type="number" name="price" required>
 
+        <!-- Mileage -->
         <label>Mileage (KM)</label>
         <input type="number" name="mileage">
 
+        <!-- CC -->
+        <label>Engine CC</label>
+        <input type="text" name="car_cc" placeholder="Example: 1.5CC">
+
+        <!-- Color -->
+        <label>Car Color</label>
+        <input type="text" name="car_color" placeholder="Example: White">
+
+        <!-- Plate -->
+        <label>Car Plate</label>
+        <input type="text" name="car_plate" placeholder="Example: VAB1234">
+
+        <!-- Status -->
         <label>Status</label>
         <select name="status">
+
             <option>Available</option>
             <option>Pending</option>
             <option>Sold</option>
+
         </select>
 
+        <!-- Images -->
         <label>Car Images</label>
-        <input type="file" id="imageInput" name="image[]" multiple accept="image/*">
+
+        <input type="file"
+               id="imageInput"
+               name="image[]"
+               multiple
+               accept="image/*">
 
         <div id="preview"></div>
 
+        <!-- Description -->
         <label>Description</label>
         <textarea name="description"></textarea>
 
@@ -124,13 +237,82 @@ if(isset($_POST['submit'])){
 </div>
 
 <script>
+
 let selectedFiles = [];
 
 const input = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
 
-// 选图
+// BRAND + MODEL FILTER
+const brand = document.getElementById("brand");
+const model = document.getElementById("model");
+const cc = document.querySelector("input[name='car_cc']");
+const carName = document.getElementById("car_name");
+
+brand.addEventListener("change", function(){
+
+    let brandId = this.value;
+
+    Array.from(model.options).forEach(option => {
+
+        if(option.value == ""){
+            option.style.display = "block";
+            return;
+        }
+
+        if(option.dataset.brand == brandId){
+            option.style.display = "block";
+        } else {
+            option.style.display = "none";
+        }
+
+    });
+
+    model.value = "";
+
+    updateCarName();
+});
+
+// MODEL CHANGE
+model.addEventListener("change", function(){
+    updateCarName();
+});
+
+// CC CHANGE
+cc.addEventListener("input", function(){
+    updateCarName();
+});
+
+// AUTO CAR NAME
+function updateCarName(){
+
+    let brandText =
+        brand.options[brand.selectedIndex]?.text || "";
+
+    let modelText =
+        model.options[model.selectedIndex]?.text || "";
+
+    let ccText = cc.value;
+
+    if(brand.value == ""){
+        brandText = "";
+    }
+
+    if(model.value == ""){
+        modelText = "";
+    }
+
+    let finalName =
+        brandText + " " +
+        modelText + " " +
+        ccText;
+
+    carName.value = finalName.trim();
+}
+
+// Select Images
 input.addEventListener("change", function(e) {
+
     let files = Array.from(e.target.files);
 
     files.forEach(file => {
@@ -140,7 +322,9 @@ input.addEventListener("change", function(e) {
     renderPreview();
 });
 
+// Preview
 function renderPreview() {
+
     preview.innerHTML = "";
 
     selectedFiles.forEach((file, index) => {
@@ -148,14 +332,40 @@ function renderPreview() {
         let reader = new FileReader();
 
         reader.onload = function(e) {
+
             let div = document.createElement("div");
+
             div.style.display = "inline-block";
             div.style.position = "relative";
             div.style.margin = "10px";
 
             div.innerHTML = `
-                <img src="${e.target.result}" width="120" style="border-radius:8px;">
-                <button onclick="removeImage(${index})"
+
+                <img src="${e.target.result}"
+                     width="120"
+                     style="border-radius:8px;">
+
+                ${
+                    index === 0
+                    ?
+                    `<div style="
+                        position:absolute;
+                        bottom:5px;
+                        left:5px;
+                        background:green;
+                        color:white;
+                        padding:3px 6px;
+                        font-size:12px;
+                        border-radius:4px;
+                    ">
+                        MAIN
+                    </div>`
+                    :
+                    ""
+                }
+
+                <button type="button"
+                    onclick="removeImage(${index})"
                     style="
                         position:absolute;
                         top:5px;
@@ -172,7 +382,9 @@ function renderPreview() {
                         justify-content:center;
                         font-size:16px;
                         font-weight:bold;
-                    ">×</button>
+                    ">
+                    ×
+                </button>
             `;
 
             preview.appendChild(div);
@@ -182,11 +394,15 @@ function renderPreview() {
     });
 }
 
+// Remove
 function removeImage(index) {
+
     selectedFiles.splice(index, 1);
+
     renderPreview();
 }
 
+// Submit
 document.getElementById("carForm").addEventListener("submit", function() {
 
     let dataTransfer = new DataTransfer();
@@ -197,6 +413,7 @@ document.getElementById("carForm").addEventListener("submit", function() {
 
     input.files = dataTransfer.files;
 });
+
 </script>
 
 </body>
